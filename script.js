@@ -1,4 +1,4 @@
-//inicio do jogo 
+    // Início do jogo 
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -19,7 +19,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-//inimigos e as naves pequeninas
+    // Inimigos e as Naves Pequenas
 var enemyInfo = {
     width: 40,
     height: 20,
@@ -34,8 +34,7 @@ var enemyInfo = {
     padding: 5
 };
 
-
-//música de fundo
+    // Músicas e/ou 8-Bit
 var move = new Howl({
     src: ['asset/move.mp3']
 });
@@ -59,25 +58,25 @@ var backmusic = new Howl({
     loop: true
 });
 
-//imagens/icons
+ // Imagens/Icons
 function preload() {
     this.load.image("mFalcon", "asset/falcon.png")
     this.load.image("tiefigther", "asset/tief.png")
     this.load.image("laser", "asset/laser_azul.png")
+    this.load.image("laser_v", "asset/laser_vermelho.png")
     this.load.image("deathstar", "asset/deathstar.png")
     this.load.image("background", "asset/back.jpg")
     this.load.image("titulo", "asset/titulo.png")
 }
 
-//variaveis de score e vida
+ // Variáveis
 var score = 0;
 var level = 1;
 var lives = 3;
 var isStarted = false;
 var figtherCount = 0;
 
-
-
+    // Background
 function create() {
     this.add.image(400, 300, 'background');    
     scene = this;
@@ -117,25 +116,27 @@ function create() {
     initEnemys()
 }
 
+    // Movimento do Player
 function update() {
     if (isStarted == true) {
         if (cursors.left.isDown || keyA.isDown) {
             player.setVelocityX(-160);
 
         }
-        //velocidade da nave do jogo (jogador)  
+        // Velocidade do Player  
         else if (cursors.right.isDown || keyD.isDown) {
             player.setVelocityX(160);
 
         }
         else {
-            //posição de inicio do jogador 
+            // Posição de inicio do Player
             player.setVelocityX(0);
 
         }
     }
 }
 
+    // Função de atirar
 function shoot() {
     if (isStarted == true) {
         if (isShooting === false) {
@@ -146,6 +147,18 @@ function shoot() {
     }
 }
 
+    // Função de atirar inimigo
+function shoot_enemy() {
+    if (isStarted == true) {
+        if (isShooting === false) {
+            managelaser_v(scene.physics.add.sprite(player.x, player.y, "laser_v"))
+            isShooting = true;
+            shootSound.play()
+        }
+    }
+}
+
+    // Posição Inicial do Inimigo
 function initEnemys() {
     for (c = 0; c < enemyInfo.count.col; c++) {
         for (r = 0; r < enemyInfo.count.row; r++) {
@@ -156,6 +169,7 @@ function initEnemys() {
     }
 }
 
+    // Movimento dos Inimigos
 setInterval(moveenemies, 1000)
 var xTimes = 0;
 var yTimes = 0;
