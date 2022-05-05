@@ -1,9 +1,7 @@
-//---Variaveis---
 var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    parent: 'jogo',
     physics: {
         default: 'arcade',
         arcade: {
@@ -19,7 +17,6 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-
 var enemyInfo = {
     width: 40,
     height: 20,
@@ -35,52 +32,50 @@ var enemyInfo = {
 };
 
 var move = new Howl({
-    src: ['assets/move.mp3']
+    src: ['asset/move.mp3']
 });
 
 var shootSound = new Howl({
-    src: ['assets/shoot.mp3']
+    src: ['asset/shoot.mp3']
 });
 
 var explosionSound = new Howl({
-    src: ['assets/explosion.mp3']
+    src: ['asset/explosion.mp3']
 });
 
 var deathstarSound = new Howl({
-    src: ['assets/deathstar.mp3'],
+    src: ['asset/deathstar.mp3'],
     loop: true
 });
+
+var backmusic = new Howl({
+    src: ['asset/impmarch.mp3'],
+    autoplay: true,
+    loop: true
+});
+
+function preload() {
+    this.load.image("mFalcon", "asset/falcon.png")
+    this.load.image("tiefigther", "asset/tief.png")
+    this.load.image("laser", "asset/laser_azul.png")
+    this.load.image("deathstar", "asset/deathstar.png")
+    this.load.image("background", "asset/back.jpg")
+    this.load.image("titulo", "asset/titulo.png")
+}
 
 var score = 0;
 var lives = 3;
 var isStarted = false;
 var figtherCount = 0;
 
-function preload(){
-    //Carregar assets
-    this.load.image("mFalcon", "asset/falcon.png")
-    this.load.image("tiefigther", "asset/tief.png")
-    this.load.image("laser", "asset/laser_azul.png")
-    this.load.image("deathstar", "asset/deathstar.png")
-    this.load.image("background", "asset/back.jpg")
-}
-
-//---Funções---
-function create(){
-    //Adicionar background
-    this.add.image(400, 300, 'background');
-    
+function create() {
+    this.add.image(400, 300, 'background');    
     scene = this;
-    //Teclas de movimento
     cursors = scene.input.keyboard.createCursorKeys();
     keyA = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-    
-    //Tecla de disparo
     isShooting = false;
     scene.input.keyboard.addCapture('SPACE');
-    
-    //Colisão dos elementos de jogo
     enemies = scene.physics.add.staticGroup();
     playerCollision = scene.add.rectangle(0, 0, 800, 10, 0x000).setOrigin(0)
     figtherCollision = scene.add.rectangle(0, 590, 800, 10, 0x000).setOrigin(0)
@@ -89,24 +84,21 @@ function create(){
     scene.physics.add.existing(figtherCollision)
     scene.physics.add.existing(deathstarCollision)
 
-    //Adicionar sprite do player e adicionar a colisão
     player = scene.physics.add.sprite(400, 560, 'mFalcon');
     player.setCollideWorldBounds(true)
 
-    //Texto do score e vidas + titulo do jogo
     scoreText = scene.add.text(16, 16, "Score: " + score, { fontSize: '18px', fill: '#FFF' })
     livesText = scene.add.text(696, 16, "Lives: " + lives, { fontSize: '18px', fill: '#FFF' })
     menu = this.add.image(400, 300, 'titulo'); 
 
-    //atribuir ação de disparo á tecla 'space'
     this.input.keyboard.on('keydown-SPACE', shoot);
 
-    //Ecrã inicial com titulo quando carregado começa o jogo
     this.input.on('pointerdown', function () {
         if (isStarted == false) {
             isStarted = true;
             menu.destroy()
             setInterval(makedeathstar, 15000)
+
         } else {
             shoot()
         }
@@ -114,8 +106,7 @@ function create(){
     initEnemys()
 }
 
-function update(){
-    //
+function update() {
     if (isStarted == true) {
         if (cursors.left.isDown || keyA.isDown) {
             player.setVelocityX(-160);
@@ -147,13 +138,12 @@ function initEnemys() {
         for (r = 0; r < enemyInfo.count.row; r++) {
             var enemyX = (c * (enemyInfo.width + enemyInfo.padding)) + enemyInfo.offset.left;
             var enemyY = (r * (enemyInfo.height + enemyInfo.padding)) + enemyInfo.offset.top;
-            enemies.create(enemyX, enemyY, 'figther').setOrigin(0.5);
+            enemies.create(enemyX, enemyY, 'tiefigther').setOrigin(0.5);
         }
     }
 }
 
 setInterval(moveenemies, 1000)
-
 var xTimes = 0;
 var yTimes = 0;
 var dir = "right"
@@ -213,24 +203,6 @@ function managelaser(laser) {
             }
 
         }, this);
-        for (var step = 0; step < barriers.length; step++) {
-            if (barriers[step].checkCollision(laser)) {
-                laser.destroy();
-                clearInterval(i)
-                isShooting = false
-
-                scoreText.setText("Score: " + score);
-
-
-                explosionSound.play()
-
-                if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
-                    end("Win")
-                }
-
-
-            }
-        }
 
         for (var step = 0; step < deathstars.length; step++) {
             var deathstar = deathstars[step];
@@ -282,22 +254,6 @@ function manageEnemylaser(laser, enemy) {
                 end("Lose")
             }
         }
-        for (var step = 0; step < barriers.length; step++) {
-            if (barriers[step].checkCollision(laser)) {
-                laser.destroy();
-                clearInterval(i)
-                isShooting = false
-
-                scoreText.setText("Score: " + score);
-
-
-                explosionSound.play()
-
-                if (score === (enemyInfo.count.col * enemyInfo.count.row)) {
-                    end("Win")
-                }
-            }
-        }
     }, 10)
     scene.physics.add.overlap(laser, figtherCollision, function () {
         laser.destroy();
@@ -322,6 +278,10 @@ function enemyFire() {
         manageEnemylaser(scene.physics.add.sprite(enemy.x, enemy.y, "laser"), enemy)
     }
 }
+
+//Flying deathstars
+
+
 
 var deathstars = [];
 function makedeathstar() {
@@ -356,8 +316,6 @@ function managedeathstar(deathstar) {
     })
     deathstarSound.play()
 }
-
-
 
 function end(con) {
     explosionSound.stop();
