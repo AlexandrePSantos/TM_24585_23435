@@ -1,3 +1,4 @@
+//---Variaveis---
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -33,17 +34,24 @@ var enemyInfo = {
 
 var game = new Phaser.Game(config);
 
+var score = 0;
+var lives = 3;
+var isStarted = false;
+var figtherCount = 0;
+
 function preload(){
     //Carregar assets
     this.load.image("mFalcon", "asset/falcon.png")
     this.load.image("tiefigther", "asset/tief.png")
     this.load.image("laser", "asset/laser_azul.png")
     this.load.image("deathstar", "asset/deathstar.png")
+    this.load.image("background", "asset/back.jpg")
 }
 
+//---Funções---
 function create(){
     //
-
+    this.add.image(400, 300, 'background');
 }
 
 function update(){
