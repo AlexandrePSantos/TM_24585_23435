@@ -1,3 +1,4 @@
+//inicio do jogo 
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -17,6 +18,8 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+
+//inimigos e as naves pequeninas
 var enemyInfo = {
     width: 40,
     height: 20,
@@ -31,6 +34,8 @@ var enemyInfo = {
     padding: 5
 };
 
+
+//música de fundo
 var move = new Howl({
     src: ['asset/move.mp3']
 });
@@ -54,6 +59,7 @@ var backmusic = new Howl({
     loop: true
 });
 
+//imagens/icons
 function preload() {
     this.load.image("mFalcon", "asset/falcon.png")
     this.load.image("tiefigther", "asset/tief.png")
@@ -63,10 +69,14 @@ function preload() {
     this.load.image("titulo", "asset/titulo.png")
 }
 
+//variaveis de score e vida
 var score = 0;
+var level = 1;
 var lives = 3;
 var isStarted = false;
 var figtherCount = 0;
+
+
 
 function create() {
     this.add.image(400, 300, 'background');    
@@ -87,6 +97,7 @@ function create() {
     player = scene.physics.add.sprite(400, 560, 'mFalcon');
     player.setCollideWorldBounds(true)
 
+    levelText = scene.add.text(330, 16, "Level: " + level, { fontSize: '18px', fill: '#FFF' })
     scoreText = scene.add.text(16, 16, "Score: " + score, { fontSize: '18px', fill: '#FFF' })
     livesText = scene.add.text(696, 16, "Lives: " + lives, { fontSize: '18px', fill: '#FFF' })
     menu = this.add.image(400, 300, 'titulo'); 
@@ -112,11 +123,13 @@ function update() {
             player.setVelocityX(-160);
 
         }
+        //velocidade da nave do jogo (jogador)  
         else if (cursors.right.isDown || keyD.isDown) {
             player.setVelocityX(160);
 
         }
         else {
+            //posição de inicio do jogador 
             player.setVelocityX(0);
 
         }
@@ -181,6 +194,7 @@ function moveenemies() {
 }
 
 function managelaser(laser) {
+    //player
     laser.setVelocityY(-380);
 
 
@@ -188,13 +202,12 @@ function managelaser(laser) {
         enemies.children.each(function (enemy) {
 
             if (checkOverlap(laser, enemy)) {
-                laser.destroy();
+                laser.destroy(); //destruir o inimigo
                 clearInterval(i)
                 isShooting = false
                 enemy.destroy()
                 score++;
-                scoreText.setText("Score: " + score);
-
+                scoreText.setText("Score: " + score); //adicionar  pontução
                 explosionSound.play()
 
                 if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
@@ -212,6 +225,7 @@ function managelaser(laser) {
                 isShooting = false
 
                 scoreText.setText("Score: " + score);
+              
 
 
                 explosionSound.play()
@@ -277,7 +291,7 @@ function enemyFire() {
         var enemy = enemies.children.entries[Phaser.Math.Between(0, enemies.children.entries.length - 1)];
         manageEnemylaser(scene.physics.add.sprite(enemy.x, enemy.y, "laser"), enemy)
     }
-}
+}     
 
 //Flying deathstars
 
