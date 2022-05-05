@@ -303,7 +303,7 @@ setInterval(enemyFire, 3000)
 function enemyFire() {
     if (isStarted === true) {
         var enemy = enemies.children.entries[Phaser.Math.Between(0, enemies.children.entries.length - 1)];
-        manageEnemylaser(scene.physics.add.sprite(enemy.x, enemy.y, "laser"), enemy)
+        manageEnemylaser(scene.physics.add.sprite(enemy.x, enemy.y, "laser_v"), enemy)
     }
 }     
 
@@ -323,7 +323,7 @@ setInterval(function () {
         for (var i = 0; i < deathstars.length; i++) {
             var deathstar = deathstars[i];
             if (deathstar.isDestroyed == false) {
-                manageEnemylaser(scene.physics.add.sprite(deathstar.x, deathstar.y, "laser"), deathstar)
+                manageEnemylaser(scene.physics.add.sprite(deathstar.x, deathstar.y, "laser_v"), deathstar)
 
             } else {
                 deathstars.splice(i, 1);
