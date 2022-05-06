@@ -368,6 +368,7 @@ function makedeathstar() {
 // Intervalo entre disparos da nave grande
 setInterval(function () {
     if (isStarted == true) {
+        // Através de um ciclo gera disparos e adiciona o asset
         for (var i = 0; i < deathstars.length; i++) {
             var deathstar = deathstars[i];
             if (deathstar.isDestroyed == false) {
