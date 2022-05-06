@@ -291,7 +291,7 @@ function managelaser(laser) {
                 enemylaserVelo = 200 + 2;
                 
                 // Aumenta contagem de naves destruidas
-                figtherCount++;
+                figtherCount = figtherCount + 2;;
             }
         }
     }, 10)
@@ -381,7 +381,7 @@ setInterval(function () {
 
 }, 1500)
 
-// Dar spawn á nave grande
+// Dar spawn à nave grande
 function managedeathstar(deathstar) {
     deathstars.push(deathstar);
     deathstar.isDestroyed = false;
