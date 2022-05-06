@@ -249,12 +249,12 @@ function managelaser(laser) {
                 // Player recebe 1 score por cada inimigo destruido
                 score++;
                 // Inserir score no ecrã
-                scoreText.setText("Score: " + score); // Adicionar pontução
-                
+                scoreText.setText("Score: " + score); // Adicionar pontuação
+                // Calcular o nível de acordo com o score
                 level = ((score - (score%5))/5 + 1);
                 levelText.setText("Level: " + level);
+                // Alterar a velocidade dos lasers dos inimigos de acordo com o nível
                 enemylaserVelo = 200 + 2;
-
                 // Som ao destruir
                 explosionSound.play()
                 // se nmr de naves destruidas for igual ao score ganha
@@ -285,11 +285,11 @@ function managelaser(laser) {
                 deathstarSound.stop();
                 // Aumenta Score
                 score++;
-                
+                // Calcular o nível de acordo com o score
                 level = ((score - (score%5))/5 + 1);
                 levelText.setText("Level: " + level);
+                // Alterar a velocidade dos lasers dos inimigos de acordo com o nível
                 enemylaserVelo = 200 + 2;
-                
                 // Aumenta contagem de naves destruidas
                 figtherCount = figtherCount + 2;;
             }
