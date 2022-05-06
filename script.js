@@ -240,8 +240,7 @@ function managelaser(laser) {
                 isShooting = false
 
                 scoreText.setText("Score: " + score);
-              
-
+                
 
                 explosionSound.play()
 
@@ -263,7 +262,6 @@ function managelaser(laser) {
         explosionSound.play();
         isShooting = false
     })
-
 }
 
     // Velocidade do Laser do Inimigo
