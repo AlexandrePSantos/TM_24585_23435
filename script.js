@@ -222,7 +222,7 @@ function managelaser(laser) {
                 enemy.destroy()
                 score++;
                 scoreText.setText("Score: " + score); // Adicionar pontução
-                level = (score - (score%5))/5 + 1;
+                level = (score - (score%5)*5)/5 + 1;
                 levelText.setText("Level: " + level);
                 enemylaserVelo = enemylaserVelo + level;
                 explosionSound.play()
@@ -253,7 +253,7 @@ function managelaser(laser) {
                 deathstar.isDestroyed = true;
                 deathstarSound.stop();
                 score++;
-                level = (score - (score%5))/5 + 1;
+                level = (score - (score%5)*5)/5 + 1;
                 levelText.setText("Level: " + level);
                 enemylaserVelo = enemylaserVelo + level;
                 figtherCount++;
