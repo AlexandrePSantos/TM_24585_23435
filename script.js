@@ -314,8 +314,6 @@ function manageEnemylaser(laser, enemy) {
     var angle = Phaser.Math.Angle.BetweenPoints(enemy, player);
     // Velocidade do laser inimigo
     scene.physics.velocityFromRotation(angle, enemylaserVelo, laser.body.velocity);
-/*    // Atribui velocidade inicial de movimento ao laser inimigo
-    enemylaserVelo = enemylaserVelo + 2*/
 
     var i = setInterval(
     function () {
@@ -367,7 +365,7 @@ function makedeathstar() {
     }
 }
 
-// Comentar
+// Intervalo entre disparos da nave grande
 setInterval(function () {
     if (isStarted == true) {
         for (var i = 0; i < deathstars.length; i++) {
@@ -381,7 +379,7 @@ setInterval(function () {
         }
     }
 
-}, 2000)
+}, 1500)
 
 // Dar spawn á nave grande
 function managedeathstar(deathstar) {
