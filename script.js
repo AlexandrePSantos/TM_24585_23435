@@ -342,7 +342,7 @@ function manageEnemylaser(laser, enemy) {
 
 }
 
-// Limites do ecrã
+// Criar hitbox dos sprites
 function checkOverlap(spriteA, spriteB) {
     var boundsA = spriteA.getBounds();
     var boundsB = spriteB.getBounds();
@@ -367,6 +367,7 @@ function makedeathstar() {
     }
 }
 
+// Comentar
 setInterval(function () {
     if (isStarted == true) {
         for (var i = 0; i < deathstars.length; i++) {
