@@ -253,7 +253,7 @@ function managelaser(laser) {
                 
                 level = ((score - (score%5))/5 + 1);
                 levelText.setText("Level: " + level);
-                enemylaserVelo = 200 + level;
+                enemylaserVelo = 200 + 2;
 
                 // Som ao destruir
                 explosionSound.play()
@@ -288,7 +288,7 @@ function managelaser(laser) {
                 
                 level = ((score - (score%5))/5 + 1);
                 levelText.setText("Level: " + level);
-                enemylaserVelo = 200 + level;
+                enemylaserVelo = 200 + 2;
                 
                 // Aumenta contagem de naves destruidas
                 figtherCount++;
