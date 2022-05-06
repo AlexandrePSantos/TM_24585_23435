@@ -136,7 +136,7 @@ function update() {
     }
 }
 
-    // Função de Atirar
+    // Função de Atirar do Player
 function shoot() {
     if (isStarted == true) {
         if (isShooting === false) {
@@ -289,6 +289,12 @@ function manageEnemylaser(laser, enemy) {
             enemylaserVelo = enemylaserVelo + 1;
         }
 
+        /*if ((score % 4) = 0 ){
+                    enemylaserVelo + 200;
+                    level = (score-(score%4)/4);
+                    
+                    levelText.setText("Level: " + level);
+                };*/
     }, 10)
     scene.physics.add.overlap(laser, figtherCollision, function () {
         laser.destroy();
