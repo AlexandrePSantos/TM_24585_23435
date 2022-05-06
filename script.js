@@ -222,9 +222,10 @@ function managelaser(laser) {
                 enemy.destroy()
                 score++;
                 scoreText.setText("Score: " + score); // Adicionar pontução
-                    level = (score - (score%5))/5 + 11;
-                    levelText.setText("Level: " + level);
-                    explosionSound.play()
+                level = (score - (score%5))/5 + 1;
+                levelText.setText("Level: " + level);
+                enemylaserVelo = enemylaserVelo + level;
+                explosionSound.play()
 
                     if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
                         end("Win")
@@ -252,9 +253,9 @@ function managelaser(laser) {
                 deathstar.isDestroyed = true;
                 deathstarSound.stop();
                 score++;
-                level = (score - (score%5))/5 + 5;
+                level = (score - (score%5))/5 + 1;
                 levelText.setText("Level: " + level);
-                
+                enemylaserVelo = enemylaserVelo + level;
                 figtherCount++;
             }
         }
@@ -273,7 +274,6 @@ var enemylaserVelo = 200;
 function manageEnemylaser(laser, enemy) {
     var angle = Phaser.Math.Angle.BetweenPoints(enemy, player);
     scene.physics.velocityFromRotation(angle, enemylaserVelo, laser.body.velocity);
-    enemylaserVelo = enemylaserVelo + 2
     var i = setInterval(function () {
 
         if (checkOverlap(laser, player)) {
