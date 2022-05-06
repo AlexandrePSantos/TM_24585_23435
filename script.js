@@ -291,7 +291,7 @@ function managelaser(laser) {
                 enemylaserVelo = 200 + 2;
                 
                 // Aumenta contagem de naves destruidas
-                figtherCount++;
+                figtherCount = figtherCount + 2;;
             }
         }
     }, 10)
