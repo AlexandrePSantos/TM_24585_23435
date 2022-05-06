@@ -222,7 +222,8 @@ function managelaser(laser) {
                 enemy.destroy()
                 score++;
                 scoreText.setText("Score: " + score); // Adicionar pontução
-
+                    level = (score - (score%5))/5 + 11;
+                    levelText.setText("Level: " + level);
                     explosionSound.play()
 
                     if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
@@ -241,7 +242,6 @@ function managelaser(laser) {
 
                 scoreText.setText("Score: " + score);
                 
-
                 explosionSound.play()
 
                 if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
@@ -252,6 +252,9 @@ function managelaser(laser) {
                 deathstar.isDestroyed = true;
                 deathstarSound.stop();
                 score++;
+                level = (score - (score%5))/5 + 5;
+                levelText.setText("Level: " + level);
+                
                 figtherCount++;
             }
         }
@@ -284,24 +287,13 @@ function manageEnemylaser(laser, enemy) {
                 end("Lose")
             }
         }
-
-        if (score > 4-2){
-            enemylaserVelo = enemylaserVelo + 1;
-        }
-
-        /*if ((score % 4) = 0 ){
-                    enemylaserVelo + 200;
-                    level = (score-(score%4)/4);
-                    
-                    levelText.setText("Level: " + level);
-                };*/
     }, 10)
+
     scene.physics.add.overlap(laser, figtherCollision, function () {
         laser.destroy();
         explosionSound.play();
         clearInterval(i);
     })
-
 }
 
 function checkOverlap(spriteA, spriteB) {
