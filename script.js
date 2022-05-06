@@ -129,14 +129,14 @@ function update() {
 
         }
         else {
-            // Posição de inicio do Player
+            // Posição de Início do Player
             player.setVelocityX(0);
 
         }
     }
 }
 
-    // Função de atirar
+    // Função de Atirar
 function shoot() {
     if (isStarted == true) {
         if (isShooting === false) {
@@ -147,7 +147,7 @@ function shoot() {
     }
 }
 
-    // Função de atirar inimigo
+    // Função de Atirar do Inimigo
 function shoot_enemy() {
     if (isStarted == true) {
         if (isShooting === false) {
@@ -207,8 +207,8 @@ function moveenemies() {
     }
 }
 
+    // Player
 function managelaser(laser) {
-    //player
     laser.setVelocityY(-380);
 
 
@@ -216,18 +216,19 @@ function managelaser(laser) {
         enemies.children.each(function (enemy) {
 
             if (checkOverlap(laser, enemy)) {
-                laser.destroy(); //destruir o inimigo
+                laser.destroy(); // Destruir o Inimigo
                 clearInterval(i)
                 isShooting = false
                 enemy.destroy()
                 score++;
-                scoreText.setText("Score: " + score); //adicionar  pontução
-                explosionSound.play()
+                scoreText.setText("Score: " + score); // Adicionar pontução
 
-                if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
-                    end("Win")
+                    explosionSound.play()
+
+                    if ((score - figtherCount) === (enemyInfo.count.col * enemyInfo.count.row)) {
+                        end("Win")
+                    }
                 }
-            }
 
         }, this);
 
@@ -264,7 +265,10 @@ function managelaser(laser) {
     })
 
 }
+
+    // Velocidade do Laser do Inimigo
 var enemylaserVelo = 200;
+
 function manageEnemylaser(laser, enemy) {
     var angle = Phaser.Math.Angle.BetweenPoints(enemy, player);
     scene.physics.velocityFromRotation(angle, enemylaserVelo, laser.body.velocity);
@@ -297,7 +301,7 @@ function checkOverlap(spriteA, spriteB) {
     return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
 }
 
-//Enemy Fire
+    // Tiros do Inimigo
 setInterval(enemyFire, 3000)
 
 function enemyFire() {
@@ -307,10 +311,7 @@ function enemyFire() {
     }
 }     
 
-//Flying deathstars
-
-
-
+    // Flying DeathStars
 var deathstars = [];
 function makedeathstar() {
     if (isStarted == true) {
@@ -345,6 +346,7 @@ function managedeathstar(deathstar) {
     deathstarSound.play()
 }
 
+    // Acabar o jogo
 function end(con) {
     explosionSound.stop();
     deathstarSound.stop();
@@ -353,5 +355,4 @@ function end(con) {
 
     alert(`You ${con}! Score: ` + score);
     location.reload()
-
 }
