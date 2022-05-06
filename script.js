@@ -382,7 +382,7 @@ setInterval(function () {
 
 }, 2000)
 
-// Dar spawn á nave grande
+// Dar spawn à nave grande
 function managedeathstar(deathstar) {
     deathstars.push(deathstar);
     deathstar.isDestroyed = false;
