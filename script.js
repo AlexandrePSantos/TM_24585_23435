@@ -251,10 +251,9 @@ function managelaser(laser) {
                 // Inserir score no ecrã
                 scoreText.setText("Score: " + score); // Adicionar pontução
                 
-                level = (score - (score%5)*5)/5 + 1;
+                level = ((score - (score%5))/5 + 1);
                 levelText.setText("Level: " + level);
-                enemylaserVelo = enemylaserVelo + level;
-
+                enemylaserVelo = 200 + level;
 
                 // Som ao destruir
                 explosionSound.play()
@@ -287,9 +286,9 @@ function managelaser(laser) {
                 // Aumenta Score
                 score++;
                 
-                level = (score - (score%5)*5)/5 + 1;
+                level = ((score - (score%5))/5 + 1);
                 levelText.setText("Level: " + level);
-                enemylaserVelo = enemylaserVelo + level;
+                enemylaserVelo = 200 + level;
                 
                 // Aumenta contagem de naves destruidas
                 figtherCount++;
@@ -315,8 +314,8 @@ function manageEnemylaser(laser, enemy) {
     var angle = Phaser.Math.Angle.BetweenPoints(enemy, player);
     // Velocidade do laser inimigo
     scene.physics.velocityFromRotation(angle, enemylaserVelo, laser.body.velocity);
-    // Atribui velocidade inicial de movimento ao laser inimigo
-    enemylaserVelo = enemylaserVelo + 2
+/*    // Atribui velocidade inicial de movimento ao laser inimigo
+    enemylaserVelo = enemylaserVelo + 2*/
 
     var i = setInterval(
     function () {
