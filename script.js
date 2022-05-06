@@ -284,6 +284,11 @@ function manageEnemylaser(laser, enemy) {
                 end("Lose")
             }
         }
+
+        if (score > 4-2){
+            enemylaserVelo = enemylaserVelo + 1;
+        }
+
     }, 10)
     scene.physics.add.overlap(laser, figtherCollision, function () {
         laser.destroy();
