@@ -300,7 +300,7 @@ function checkOverlap(spriteA, spriteB) {
 }
 
     // Tiros do Inimigo
-setInterval(enemyFire, 3000)
+setInterval(enemyFire, 1500)
 
 function enemyFire() {
     if (isStarted === true) {
